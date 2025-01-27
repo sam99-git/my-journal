@@ -71,7 +71,10 @@ function saveNotesToDrive(notes) {
         gapi.client.drive.files.update({
             fileId: notesFileId,
             media: media,
-        }).then(() => alert('Notes saved successfully.'));
+        }).then(() => {
+            alert('Notes saved successfully.');
+            renderNotes(notes); // Ensure notes are rendered after saving
+        });
     } else {
         gapi.client.drive.files.create({
             resource: fileMetadata,
@@ -80,6 +83,7 @@ function saveNotesToDrive(notes) {
         }).then(response => {
             notesFileId = response.result.id;
             alert('Notes saved successfully.');
+            renderNotes(notes); // Ensure notes are rendered after saving
         });
     }
 }
@@ -112,10 +116,12 @@ document.getElementById('add-note-btn').addEventListener('click', () => {
         time: now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Dubai' }),
     };
 
+    // Get existing notes from Google Drive or initialize if none exist
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     notes.push(note);
-    localStorage.setItem('notes', JSON.stringify(notes));
+
+    // Save updated notes to Google Drive
     saveNotesToDrive(notes);
-    renderNotes(notes);
-    noteInput.value = '';
+
+    noteInput.value = '';  // Clear the input field
 });
