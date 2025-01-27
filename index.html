@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Journal</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
-    <h1>Welcome to My Journal</h1>
-    <p>Write your daily notes here!</p>
-    <div id="notes-container"></div>
-    <textarea id="note-input" placeholder="Write a note..."></textarea>
-    <button onclick="addNote()">Add Note</button>
+    <div class="container">
+        <h1>My Journal</h1>
+
+        <!-- Authentication Section -->
+        <div id="auth-section">
+            <button id="sign-in-btn">Sign In with Google</button>
+            <button id="sign-out-btn" style="display: none;">Sign Out</button>
+        </div>
+
+        <!-- Journal Section -->
+        <div id="journal-section" style="display: none;">
+            <textarea id="note-input" placeholder="Write your note here..."></textarea>
+            <button id="add-note-btn">Add Note</button>
+            <div id="notes-container"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
